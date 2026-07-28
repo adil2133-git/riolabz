@@ -7,6 +7,8 @@ import { PortfolioSection } from "@/components/home/PortfolioSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { TrustSection } from "@/components/home/TrustSection";
 import { TestimonialSection } from "@/components/home/TestimonialSection";
+import { ContactSection } from "@/components/home/ContactSection";
+import { Footer } from "@/components/layout/Footer";
 
 export default function HomePage() {
   return (
@@ -20,7 +22,9 @@ export default function HomePage() {
         <ProcessSection />
         <TrustSection />
         <TestimonialSection />
+        <ContactSection />
       </main>
+      <Footer />
     </div>
   );
 }
