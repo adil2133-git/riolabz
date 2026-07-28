@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/home/ServicesSection";
 import { PortfolioSection } from "@/components/home/PortfolioSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { TrustSection } from "@/components/home/TrustSection";
+import { TestimonialSection } from "@/components/home/TestimonialSection";
 
 export default function HomePage() {
   return (
@@ -18,9 +19,8 @@ export default function HomePage() {
         <PortfolioSection />
         <ProcessSection />
         <TrustSection />
+        <TestimonialSection />
       </main>
     </div>
   );
 }
-
-
