@@ -4,21 +4,23 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 
 const processStages = [
   {
     id: "01",
     stage: "STAGE 01",
-    title: "Discovery & Architectural Blueprint",
-    subtitle: "TECHNICAL SCOPING",
+    title: "Discovery & System Blueprint",
+    subtitle: "PHASE 01 · REQUIREMENTS",
     shortNav: "01 / Discovery",
     description:
-      "Detailed requirements scoping, system architecture blueprinting, and risk analysis tailored to enterprise goals.",
+      "Detailed stakeholder interviews, technical stack alignment, and risk analysis tailored to enterprise goals.",
+    outcome: "Reduces mid-project scope changes by up to 40%.",
+    duration: "EST. DURATION: 2–3 WEEKS",
     deliverables: [
-      "System Architecture & API Specs",
+      "Core System & API Specifications",
       "Cloud Infrastructure Roadmap",
-      "Sprint Milestones Schedule",
+      "Security & Compliance Audit",
     ],
     icon: Search,
     image: "/process-discovery.jpg",
@@ -27,28 +29,32 @@ const processStages = [
   {
     id: "02",
     stage: "STAGE 02",
-    title: "Modular UI/UX Design & Prototyping",
-    subtitle: "DESIGN SYSTEMS & FIGMA",
+    title: "Modular UI/UX & Prototyping",
+    subtitle: "PHASE 02 · DESIGN SYSTEM",
     shortNav: "02 / UI/UX Design",
     description:
-      "Modular design systems, Figma tokens, and interactive wireframes to validate user flows before coding.",
+      "Figma component tokens, design systems, and interactive high-fidelity wireframes to validate user flows before coding.",
+    outcome: "Increases user onboarding completion by 65%.",
+    duration: "EST. DURATION: 2 WEEKS",
     deliverables: [
-      "Figma Design Systems & Tokens",
-      "Interactive High-Fidelity Wireframes",
-      "Database Schemas & Data Models",
+      "Figma Design Tokens & Components",
+      "Interactive Prototype Wireframes",
+      "WCAG 2.1 AA Accessibility Specs",
     ],
     icon: Compass,
     image: "/process-design.jpg",
-    badge: "Design Token Systems",
+    badge: "Design System Tokens",
   },
   {
     id: "03",
     stage: "STAGE 03",
-    title: "Agile Development & Automated QA",
-    subtitle: "SPRINTS & CI/CD TELEMETRY",
+    title: "Agile Development & QA",
+    subtitle: "PHASE 03 · SPRINT EXECUTION",
     shortNav: "03 / Agile Dev",
     description:
       "Two-week agile sprints, test-driven Next.js/React development, automated CI/CD pipelines, and 100% code coverage.",
+    outcome: "Accelerates time-to-market with 100% test coverage.",
+    duration: "EST. DURATION: 4–6 WEEKS",
     deliverables: [
       "Agile Sprint Code Deliverables",
       "Automated CI/CD Deployment",
@@ -56,16 +62,18 @@ const processStages = [
     ],
     icon: Code2,
     image: "/process-dev.jpg",
-    badge: "100% Code Coverage",
+    badge: "Automated Testing",
   },
   {
     id: "04",
     stage: "STAGE 04",
-    title: "Zero-Downtime Launch & 24/7 SLA",
-    subtitle: "CLOUD DEPLOYMENT & SUPPORT",
+    title: "Zero-Downtime Launch & SLA",
+    subtitle: "PHASE 04 · DEPLOYMENT",
     shortNav: "04 / Cloud Launch",
     description:
       "Seamless GCP/AWS cloud production deployment with continuous 24/7 SLA uptime telemetry monitoring.",
+    outcome: "Guarantees 99.99% uptime with zero deployment outages.",
+    duration: "EST. DURATION: 1 WEEK",
     deliverables: [
       "Zero-Downtime Production Launch",
       "24/7 Managed SLA Infrastructure",
@@ -73,7 +81,7 @@ const processStages = [
     ],
     icon: Rocket,
     image: "/process-launch.jpg",
-    badge: "99.99% SLA Guarantee",
+    badge: "99.99% SLA Uptime",
   },
 ];
 
@@ -125,7 +133,7 @@ export const ProcessSection: React.FC = () => {
       return {
         x: -380,
         scale: 0.8,
-        opacity: 0.45,
+        opacity: 0.5,
         filter: "blur(3px)",
         zIndex: 10,
         rotateY: 18,
@@ -136,7 +144,7 @@ export const ProcessSection: React.FC = () => {
       return {
         x: 380,
         scale: 0.8,
-        opacity: 0.45,
+        opacity: 0.5,
         filter: "blur(3px)",
         zIndex: 10,
         rotateY: -18,
@@ -159,15 +167,15 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       onWheel={handleWheel}
-      className="pt-6 pb-6 bg-slate-950 text-white border-t border-slate-800 relative overflow-hidden flex flex-col justify-center min-h-[520px]"
+      className="pt-8 pb-8 bg-slate-950 text-white relative overflow-hidden flex flex-col justify-center min-h-[520px]"
     >
       {/* Ambient Background Glows */}
-      <div className="absolute top-1/2 left-1/4 w-[500px] h-[300px] bg-[#2563eb]/10 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-[#00f0b5]/5 rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[300px] bg-[#2563eb]/15 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-[#00f0b5]/10 rounded-full blur-[110px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         
-        {/* Section Header (Compact layout) */}
+        {/* Section Header */}
         <div className="text-center max-w-xl mx-auto space-y-0.5 mb-2">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -175,7 +183,7 @@ export const ProcessSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
           >
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-white text-[9px] font-mono font-semibold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[#00f0b5] text-[9px] font-mono font-bold uppercase tracking-widest">
               <Sparkles className="w-2.5 h-2.5 text-[#00f0b5]" />
               ENGINEERED DELIVERY
             </span>
@@ -196,9 +204,9 @@ export const ProcessSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-400 text-[11px] font-normal leading-tight"
+            className="text-slate-300 text-[11px] font-medium leading-tight"
           >
-            Swipe horizontally or click cards to travel through our 4-stage execution track.
+            Swipe or click through our 4-stage delivery process.
           </motion.p>
         </div>
 
@@ -212,8 +220,8 @@ export const ProcessSection: React.FC = () => {
                 onClick={() => goToStage(idx)}
                 className={`px-3 py-1 rounded-full font-mono text-[10px] font-bold transition-all duration-300 flex items-center gap-1 border ${
                   isActive
-                    ? "bg-[#2563eb] text-white border-[#2563eb] shadow-md shadow-[#2563eb]/20 scale-105"
-                    : "bg-white/5 hover:bg-white/10 text-slate-400 border-white/10"
+                    ? "bg-[#2563eb] text-white border-[#2563eb] shadow-md shadow-[#2563eb]/25 scale-105"
+                    : "bg-white/10 hover:bg-white/20 text-slate-200 border-white/20"
                 }`}
               >
                 <span>{stage.shortNav}</span>
@@ -222,8 +230,8 @@ export const ProcessSection: React.FC = () => {
           })}
         </div>
 
-        {/* 3D CURVED TRACK STAGE CAROUSEL (340px Height - Fits 100% in viewport) */}
-        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[330px] sm:h-[350px] [perspective:1200px]">
+        {/* 3D CURVED TRACK STAGE CAROUSEL */}
+        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[340px] sm:h-[360px] [perspective:1200px]">
           {processStages.map((stage, idx) => {
             const style = getCardStyle(idx);
             const isCenter = activeIdx === idx;
@@ -248,12 +256,12 @@ export const ProcessSection: React.FC = () => {
                 <div
                   className={`bg-slate-900/95 backdrop-blur-2xl border rounded-2xl p-4 text-white transition-all duration-300 space-y-2.5 ${
                     isCenter
-                      ? "border-[#2563eb] bg-slate-900 shadow-[0_0_50px_rgba(37,99,235,0.3)]"
+                      ? "border-[#2563eb] bg-slate-900 shadow-[0_0_50px_rgba(37,99,235,0.35)]"
                       : "border-white/15 hover:border-white/30"
                   }`}
                 >
-                  {/* Top Image Frame (h-28 sm:h-32) */}
-                  <div className="relative h-28 sm:h-32 w-full rounded-xl overflow-hidden border border-white/15 bg-slate-950">
+                  {/* Top Image Frame (Consistent Blue/Indigo Duotone Overlay) */}
+                  <div className="relative h-28 sm:h-32 w-full rounded-xl overflow-hidden border border-white/20 bg-slate-950">
                     <Image
                       src={stage.image}
                       alt={stage.title}
@@ -262,21 +270,25 @@ export const ProcessSection: React.FC = () => {
                       className="object-cover opacity-90"
                       priority={idx === 0}
                     />
+
+                    {/* CONSISTENT BRAND DUOTONE OVERLAY */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#2563eb]/45 via-indigo-950/40 to-slate-950/80 mix-blend-multiply pointer-events-none" />
+                    <div className="absolute inset-0 bg-[#2563eb]/10 pointer-events-none" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
                     {/* Top Badges */}
                     <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-10">
-                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-[#00f0b5] text-[9px] font-mono font-bold border border-white/20">
-                        {stage.stage}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-white text-[9px] font-mono font-semibold border border-white/15 flex items-center gap-1">
-                        <ShieldCheck className="w-2.5 h-2.5 text-[#00f0b5]" />
+                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-[#00f0b5] text-[9px] font-mono font-bold border border-emerald-500/30 shadow-xs">
                         {stage.badge}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-white text-[9px] font-mono font-semibold border border-white/20 flex items-center gap-1 shadow-xs">
+                        <ShieldCheck className="w-2.5 h-2.5 text-[#00f0b5]" />
+                        VERIFIED
                       </span>
                     </div>
 
                     {/* Stage Watermark Number */}
-                    <div className="absolute bottom-1 right-2.5 z-10 text-2xl font-mono font-black text-white/25 select-none">
+                    <div className="absolute bottom-1 right-2.5 z-10 text-2xl font-mono font-black text-white/35 select-none">
                       {stage.id}
                     </div>
                   </div>
@@ -284,7 +296,7 @@ export const ProcessSection: React.FC = () => {
                   {/* Stage Copy Details */}
                   <div className="space-y-1">
                     <div className="space-y-0.5">
-                      <div className="flex items-center gap-1 text-[9px] font-mono text-[#2563eb] font-bold">
+                      <div className="flex items-center gap-1 text-[9px] font-mono text-[#00f0b5] font-bold">
                         <Icon className="w-3 h-3 text-[#00f0b5]" />
                         <span>{stage.subtitle}</span>
                       </div>
@@ -297,14 +309,20 @@ export const ProcessSection: React.FC = () => {
                       {stage.description}
                     </p>
 
+                    {/* Business Outcome Impact Badge */}
+                    <div className="pt-1 flex items-center gap-1 text-[10px] font-mono text-[#00f0b5] font-semibold bg-[#00f0b5]/10 px-2 py-1 rounded border border-[#00f0b5]/20">
+                      <TrendingUp className="w-3 h-3 flex-shrink-0" />
+                      <span className="line-clamp-1">{stage.outcome}</span>
+                    </div>
+
                     {/* Deliverables Checklist */}
-                    <div className="pt-1 space-y-0.5 border-t border-white/10">
-                      <div className="text-[8px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                        KEY STAGE DELIVERABLES
+                    <div className="pt-1 space-y-0.5 border-t border-white/15">
+                      <div className="text-[8px] font-mono text-slate-300 font-extrabold uppercase tracking-wider">
+                        DELIVERABLES
                       </div>
                       <div className="space-y-0.5">
                         {stage.deliverables.map((del) => (
-                          <div key={del} className="flex items-center gap-1 text-[9px] text-slate-200 font-medium bg-white/5 px-2 py-0.5 rounded border border-white/10">
+                          <div key={del} className="flex items-center gap-1 text-[9px] text-slate-100 font-semibold bg-white/10 px-2 py-0.5 rounded border border-white/15">
                             <CheckCircle2 className="w-2.5 h-2.5 text-[#00f0b5] flex-shrink-0" />
                             <span className="line-clamp-1">{del}</span>
                           </div>
@@ -314,14 +332,14 @@ export const ProcessSection: React.FC = () => {
                   </div>
 
                   {/* Card Action Footer */}
-                  <div className="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] font-mono">
-                    <span className="text-slate-400">RIOLABZ STAGE {stage.id} / 04</span>
+                  <div className="pt-1.5 border-t border-white/15 flex items-center justify-between text-[9px] font-mono font-bold">
+                    <span className="text-slate-300 tracking-wide">{stage.duration}</span>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-1 text-[#00f0b5] font-bold hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1 text-[#00f0b5] hover:text-white transition-colors text-xs font-black"
                     >
-                      <span>Scope</span>
-                      <ArrowRight className="w-2.5 h-2.5" />
+                      <span>View Full Scope</span>
+                      <ArrowRight className="w-3 h-3" />
                     </Link>
                   </div>
 
@@ -336,7 +354,7 @@ export const ProcessSection: React.FC = () => {
           <button
             onClick={handlePrev}
             aria-label="Previous Stage"
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#2563eb] text-white border border-white/15 transition-all flex items-center justify-center shadow-lg active:scale-95 text-xs"
+            className="w-8 h-8 rounded-full bg-white/15 hover:bg-[#2563eb] text-white border border-white/20 transition-all flex items-center justify-center shadow-lg active:scale-95 text-xs"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
           </button>
@@ -348,7 +366,7 @@ export const ProcessSection: React.FC = () => {
                 key={i}
                 onClick={() => goToStage(i)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  activeIdx === i ? "bg-[#00f0b5] w-6" : "bg-white/20 w-1.5 hover:bg-white/40"
+                  activeIdx === i ? "bg-[#00f0b5] w-7" : "bg-white/30 w-1.5 hover:bg-white/60"
                 }`}
               />
             ))}
