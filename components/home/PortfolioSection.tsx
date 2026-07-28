@@ -113,7 +113,7 @@ export const PortfolioSection: React.FC = () => {
   const [activeModal, setActiveModal] = useState<typeof divisions[0] | null>(null);
 
   return (
-    <section className="py-24 bg-white border-t border-slate-200/80 relative">
+    <section className="pt-20 pb-8 bg-white border-t border-slate-200/80 relative">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -150,14 +150,15 @@ export const PortfolioSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Sticky Stacking Container (Optimized card height & generous scroll distance) */}
+      {/* Sticky Stacking Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {divisions.map((item, index) => {
           const isReverse = index % 2 !== 0;
+          const isLast = index === divisions.length - 1;
           return (
             <div
               key={item.id}
-              className={`sticky top-20 ${item.zIndex} mb-[25vh] transition-all duration-300`}
+              className={`sticky top-20 ${item.zIndex} ${isLast ? "mb-0" : "mb-[20vh]"} transition-all duration-300`}
             >
               <div className="relative bg-white rounded-3xl border border-slate-300 p-6 sm:p-8 lg:p-10 shadow-[0_-10px_40px_rgba(0,0,0,0.08)] overflow-hidden group">
                 
