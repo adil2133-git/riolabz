@@ -4,6 +4,8 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { PortfolioSection } from "@/components/home/PortfolioSection";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { TrustSection } from "@/components/home/TrustSection";
 
 export default function HomePage() {
   return (
@@ -14,6 +16,8 @@ export default function HomePage() {
         <HeroSection />
         <ServicesSection />
         <PortfolioSection />
+        <ProcessSection />
+        <TrustSection />
       </main>
     </div>
   );
