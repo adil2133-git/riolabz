@@ -1,209 +1,366 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles, Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
 
 const processStages = [
   {
     id: "01",
-    tag: "STAGE 01",
-    title: "Discovery & Technical Roadmap",
-    subtitle: "Architectural Scoping",
+    stage: "STAGE 01",
+    title: "Discovery & Architectural Blueprint",
+    subtitle: "TECHNICAL SCOPING",
+    shortNav: "01 / Discovery",
     description:
-      "We begin with detailed requirements scoping, system architecture planning, risk analysis, and cloud tech stack selection tailored specifically to your enterprise targets.",
+      "Detailed requirements scoping, system architecture blueprinting, and risk analysis tailored to enterprise goals.",
     deliverables: [
       "System Architecture & API Specs",
       "Cloud Infrastructure Roadmap",
-      "Technical Risk & Compliance Scoping",
-      "Sprint Milestones & Delivery Schedule",
+      "Sprint Milestones Schedule",
     ],
     icon: Search,
     image: "/process-discovery.jpg",
-    badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+    badge: "Architectural Scoping",
   },
   {
     id: "02",
-    tag: "STAGE 02",
-    title: "Modular UI/UX Design",
-    subtitle: "Design Systems & Figma Prototypes",
+    stage: "STAGE 02",
+    title: "Modular UI/UX Design & Prototyping",
+    subtitle: "DESIGN SYSTEMS & FIGMA",
+    shortNav: "02 / UI/UX Design",
     description:
-      "Our design team crafts modular component systems, Figma design tokens, and interactive wireframes to validate user flows and accessibility before writing production code.",
+      "Modular design systems, Figma tokens, and interactive wireframes to validate user flows before coding.",
     deliverables: [
       "Figma Design Systems & Tokens",
       "Interactive High-Fidelity Wireframes",
-      "Database Schemas & Data Model Diagrams",
-      "WCAG 2.1 AA Accessibility Audits",
+      "Database Schemas & Data Models",
     ],
     icon: Compass,
     image: "/process-design.jpg",
-    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    badge: "Design Token Systems",
   },
   {
     id: "03",
-    tag: "STAGE 03",
-    title: "Agile Development & Testing",
-    subtitle: "Two-Week Sprints & CI/CD Telemetry",
+    stage: "STAGE 03",
+    title: "Agile Development & Automated QA",
+    subtitle: "SPRINTS & CI/CD TELEMETRY",
+    shortNav: "03 / Agile Dev",
     description:
-      "Using two-week agile sprints and test-driven development, we write clean, scalable Next.js and React Native code supported by automated CI/CD pipelines.",
+      "Two-week agile sprints, test-driven Next.js/React development, automated CI/CD pipelines, and 100% code coverage.",
     deliverables: [
-      "Two-Week Agile Sprint Deliverables",
-      "Automated CI/CD Deployment Pipelines",
-      "Unit, Integration & E2E Testing Suites",
-      "Daily Git Commits & Code Audits",
+      "Agile Sprint Code Deliverables",
+      "Automated CI/CD Deployment",
+      "Unit & E2E Testing Suites",
     ],
     icon: Code2,
     image: "/process-dev.jpg",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badge: "100% Code Coverage",
   },
   {
     id: "04",
-    tag: "STAGE 04",
+    stage: "STAGE 04",
     title: "Zero-Downtime Launch & 24/7 SLA",
-    subtitle: "Cloud Launch & 24/7 SLA Support",
+    subtitle: "CLOUD DEPLOYMENT & SUPPORT",
+    shortNav: "04 / Cloud Launch",
     description:
-      "We execute seamless production deployment onto GCP/AWS cloud clusters, with continuous 24/7 SLA uptime telemetry monitoring, load balancing, and round-the-clock support.",
+      "Seamless GCP/AWS cloud production deployment with continuous 24/7 SLA uptime telemetry monitoring.",
     deliverables: [
       "Zero-Downtime Production Launch",
-      "24/7 Managed SLA Infrastructure Support",
-      "Automated Database Backups & Clustering",
-      "Continuous Security & Load Audits",
+      "24/7 Managed SLA Infrastructure",
+      "Automated Database Clustering",
     ],
     icon: Rocket,
     image: "/process-launch.jpg",
-    badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
+    badge: "99.99% SLA Guarantee",
   },
 ];
 
 export const ProcessSection: React.FC = () => {
-  return (
-    <section className="py-28 bg-slate-50/70 border-t border-slate-200/80 relative overflow-hidden">
-      {/* Background Soft Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#2563eb]/5 rounded-full blur-[150px] pointer-events-none" />
+  const [activeIdx, setActiveIdx] = useState(0);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev + 1) % processStages.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev - 1 + processStages.length) % processStages.length);
+  };
+
+  const goToStage = (index: number) => {
+    setActiveIdx(index);
+  };
+
+  // ONLY capture HORIZONTAL scroll swipes (deltaX), ignore vertical deltaY
+  const handleWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaX) > 25) {
+      if (e.deltaX > 0) {
+        handleNext();
+      } else if (e.deltaX < 0) {
+        handlePrev();
+      }
+    }
+  };
+
+  // Responsive 3D Arc offsets
+  const getCardStyle = (index: number) => {
+    const total = processStages.length;
+    let diff = (index - activeIdx + total) % total;
+    if (diff > total / 2) diff -= total;
+
+    if (diff === 0) {
+      // CENTER ACTIVE CARD
+      return {
+        x: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        zIndex: 30,
+        rotateY: 0,
+        pointerEvents: "auto" as const,
+      };
+    } else if (diff === -1 || (diff === total - 1 && activeIdx === 0)) {
+      // LEFT PREVIEW CARD
+      return {
+        x: -380,
+        scale: 0.8,
+        opacity: 0.45,
+        filter: "blur(3px)",
+        zIndex: 10,
+        rotateY: 18,
+        pointerEvents: "auto" as const,
+      };
+    } else if (diff === 1 || (diff === -(total - 1) && activeIdx === total - 1)) {
+      // RIGHT PREVIEW CARD
+      return {
+        x: 380,
+        scale: 0.8,
+        opacity: 0.45,
+        filter: "blur(3px)",
+        zIndex: 10,
+        rotateY: -18,
+        pointerEvents: "auto" as const,
+      };
+    } else {
+      // FAR HIDDEN CARDS
+      return {
+        x: diff > 0 ? 600 : -600,
+        scale: 0.65,
+        opacity: 0,
+        filter: "blur(5px)",
+        zIndex: 0,
+        rotateY: diff > 0 ? -30 : 30,
+        pointerEvents: "none" as const,
+      };
+    }
+  };
+
+  return (
+    <section
+      onWheel={handleWheel}
+      className="pt-6 pb-6 bg-slate-950 text-white border-t border-slate-800 relative overflow-hidden flex flex-col justify-center min-h-[520px]"
+    >
+      {/* Ambient Background Glows */}
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[300px] bg-[#2563eb]/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-[#00f0b5]/5 rounded-full blur-[110px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-20">
+        {/* Section Header (Compact layout) */}
+        <div className="text-center max-w-xl mx-auto space-y-0.5 mb-2">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-800 text-xs font-mono font-semibold uppercase tracking-widest shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-white text-[9px] font-mono font-semibold uppercase tracking-widest">
+              <Sparkles className="w-2.5 h-2.5 text-[#00f0b5]" />
               ENGINEERED DELIVERY
             </span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-slate-900 tracking-tight"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-xl sm:text-2xl lg:text-3xl font-heading font-black text-white tracking-tight"
           >
             How We Build &amp; Deliver
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-600 text-lg font-normal leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-slate-400 text-[11px] font-normal leading-tight"
           >
-            A battle-tested 4-stage methodology for precision software engineering.
+            Swipe horizontally or click cards to travel through our 4-stage execution track.
           </motion.p>
         </div>
 
-        {/* 4 Process Cards Grid with Custom Images */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Stage Navigation Pills */}
+        <div className="flex items-center justify-center gap-1.5 flex-wrap mb-3 relative z-40">
           {processStages.map((stage, idx) => {
+            const isActive = activeIdx === idx;
+            return (
+              <button
+                key={stage.id}
+                onClick={() => goToStage(idx)}
+                className={`px-3 py-1 rounded-full font-mono text-[10px] font-bold transition-all duration-300 flex items-center gap-1 border ${
+                  isActive
+                    ? "bg-[#2563eb] text-white border-[#2563eb] shadow-md shadow-[#2563eb]/20 scale-105"
+                    : "bg-white/5 hover:bg-white/10 text-slate-400 border-white/10"
+                }`}
+              >
+                <span>{stage.shortNav}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 3D CURVED TRACK STAGE CAROUSEL (340px Height - Fits 100% in viewport) */}
+        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[330px] sm:h-[350px] [perspective:1200px]">
+          {processStages.map((stage, idx) => {
+            const style = getCardStyle(idx);
+            const isCenter = activeIdx === idx;
             const Icon = stage.icon;
+
             return (
               <motion.div
                 key={stage.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6 }}
-                className="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-2xl hover:border-slate-300 transition-all duration-300 flex flex-col justify-between group"
+                onClick={() => goToStage(idx)}
+                animate={{
+                  x: style.x,
+                  scale: style.scale,
+                  opacity: style.opacity,
+                  filter: style.filter,
+                  rotateY: style.rotateY,
+                  zIndex: style.zIndex,
+                }}
+                transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                className="absolute w-[270px] sm:w-[310px] lg:w-[340px] cursor-pointer shadow-2xl [transform-style:preserve-3d]"
+                style={{ pointerEvents: style.pointerEvents }}
               >
-                {/* Top Image Frame */}
-                <div className="relative h-64 sm:h-72 w-full bg-slate-900 overflow-hidden border-b border-slate-200/80">
-                  <Image
-                    src={stage.image}
-                    alt={stage.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                    priority={idx === 0}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                <div
+                  className={`bg-slate-900/95 backdrop-blur-2xl border rounded-2xl p-4 text-white transition-all duration-300 space-y-2.5 ${
+                    isCenter
+                      ? "border-[#2563eb] bg-slate-900 shadow-[0_0_50px_rgba(37,99,235,0.3)]"
+                      : "border-white/15 hover:border-white/30"
+                  }`}
+                >
+                  {/* Top Image Frame (h-28 sm:h-32) */}
+                  <div className="relative h-28 sm:h-32 w-full rounded-xl overflow-hidden border border-white/15 bg-slate-950">
+                    <Image
+                      src={stage.image}
+                      alt={stage.title}
+                      fill
+                      sizes="350px"
+                      className="object-cover opacity-90"
+                      priority={idx === 0}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
-                  {/* Top Badges Overlay */}
-                  <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
-                    <span className="px-3.5 py-1 rounded-full bg-white/95 backdrop-blur-md text-slate-900 text-xs font-mono font-bold shadow-sm">
-                      {stage.tag}
-                    </span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-mono font-semibold border ${stage.badgeColor} bg-white/90 backdrop-blur-md`}>
-                      {stage.subtitle}
-                    </span>
-                  </div>
-
-                  {/* Bottom Stage Title overlay inside image frame */}
-                  <div className="absolute bottom-5 left-5 right-5 z-10 text-white flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5" />
+                    {/* Top Badges */}
+                    <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-10">
+                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-[#00f0b5] text-[9px] font-mono font-bold border border-white/20">
+                        {stage.stage}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-slate-900/90 backdrop-blur-md text-white text-[9px] font-mono font-semibold border border-white/15 flex items-center gap-1">
+                        <ShieldCheck className="w-2.5 h-2.5 text-[#00f0b5]" />
+                        {stage.badge}
+                      </span>
                     </div>
-                    <h3 className="text-xl font-heading font-extrabold text-white">
-                      {stage.title}
-                    </h3>
-                  </div>
-                </div>
 
-                {/* Card Content Body */}
-                <div className="p-8 space-y-6 flex-grow flex flex-col justify-between">
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-                    {stage.description}
-                  </p>
-
-                  {/* Deliverables Checklist Grid */}
-                  <div className="pt-2 space-y-3 border-t border-slate-100">
-                    <div className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                      DELIVERABLES &amp; OUTPUTS
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {stage.deliverables.map((del) => (
-                        <div key={del} className="flex items-center gap-2 text-xs font-semibold text-slate-800 bg-slate-50 p-2.5 rounded-lg border border-slate-200/80">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#2563eb] flex-shrink-0" />
-                          <span className="line-clamp-1">{del}</span>
-                        </div>
-                      ))}
+                    {/* Stage Watermark Number */}
+                    <div className="absolute bottom-1 right-2.5 z-10 text-2xl font-mono font-black text-white/25 select-none">
+                      {stage.id}
                     </div>
                   </div>
 
-                  {/* Action Link */}
-                  <div className="pt-4 flex items-center justify-between border-t border-slate-100">
-                    <span className="text-xs font-mono text-slate-400 font-semibold">STAGE {stage.id} EXECUTION</span>
+                  {/* Stage Copy Details */}
+                  <div className="space-y-1">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-1 text-[9px] font-mono text-[#2563eb] font-bold">
+                        <Icon className="w-3 h-3 text-[#00f0b5]" />
+                        <span>{stage.subtitle}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-base font-heading font-black text-white leading-tight">
+                        {stage.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-slate-300 text-[10px] leading-snug font-normal line-clamp-2">
+                      {stage.description}
+                    </p>
+
+                    {/* Deliverables Checklist */}
+                    <div className="pt-1 space-y-0.5 border-t border-white/10">
+                      <div className="text-[8px] font-mono text-slate-400 font-bold uppercase tracking-wider">
+                        KEY STAGE DELIVERABLES
+                      </div>
+                      <div className="space-y-0.5">
+                        {stage.deliverables.map((del) => (
+                          <div key={del} className="flex items-center gap-1 text-[9px] text-slate-200 font-medium bg-white/5 px-2 py-0.5 rounded border border-white/10">
+                            <CheckCircle2 className="w-2.5 h-2.5 text-[#00f0b5] flex-shrink-0" />
+                            <span className="line-clamp-1">{del}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Action Footer */}
+                  <div className="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] font-mono">
+                    <span className="text-slate-400">RIOLABZ STAGE {stage.id} / 04</span>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#2563eb] transition-colors"
+                      className="inline-flex items-center gap-1 text-[#00f0b5] font-bold hover:text-white transition-colors"
                     >
-                      <span>Explore Scope</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <span>Scope</span>
+                      <ArrowRight className="w-2.5 h-2.5" />
                     </Link>
                   </div>
-                </div>
 
+                </div>
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Bottom Carousel Controls */}
+        <div className="flex items-center justify-center gap-3 mt-3 relative z-40">
+          <button
+            onClick={handlePrev}
+            aria-label="Previous Stage"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#2563eb] text-white border border-white/15 transition-all flex items-center justify-center shadow-lg active:scale-95 text-xs"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Stage Step Indicator Dots */}
+          <div className="flex items-center gap-1.5">
+            {processStages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToStage(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeIdx === i ? "bg-[#00f0b5] w-6" : "bg-white/20 w-1.5 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={handleNext}
+            aria-label="Next Stage"
+            className="w-8 h-8 rounded-full bg-[#2563eb] hover:bg-blue-600 text-white transition-all flex items-center justify-center shadow-lg active:scale-95 text-xs"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
       </div>
