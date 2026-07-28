@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
+import { PortfolioSection } from "@/components/home/PortfolioSection";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <main className="flex-grow">
         <HeroSection />
         <ServicesSection />
+        <PortfolioSection />
       </main>
     </div>
   );
