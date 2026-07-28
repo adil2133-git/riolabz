@@ -24,7 +24,11 @@ export const metadata: Metadata = {
   title: "Riolabz | Next-Gen Web & Mobile Product Engineering",
   description:
     "Architecting the future of enterprise software, high-performing websites, and scalable mobile products for forward-thinking brands globally.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
+
 
 export default function RootLayout({
   children,
