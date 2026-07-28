@@ -4,13 +4,21 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUIStore } from "@/lib/store/ui-store";
-import { Button } from "@/components/ui/Button";
-import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Solutions", href: "/solutions" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Careers", href: "/careers" },
+];
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { mobileMenuOpen, toggleMobileMenu } = useUIStore();
+  const { toggleMobileMenu, mobileMenuOpen } = useUIStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,44 +28,34 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-  ];
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#07090f]/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-2xl shadow-black/50"
-          : "bg-transparent py-5"
+          ? "bg-white/90 backdrop-blur-md py-4 border-b border-slate-200/80 shadow-sm"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Wordmark */}
-        <Link href="/" className="group">
-          <span className="font-heading font-extrabold text-2xl tracking-tight text-white group-hover:text-[#818cf8] transition-colors duration-200">
-            riolabz<span className="text-[#f59e0b]">.</span>
+        <Link href="/" className="group flex items-center gap-1">
+          <span className="font-heading font-black text-2xl tracking-tight text-slate-900 group-hover:text-slate-700 transition-colors">
+            riolabz<span className="text-[#2563eb]">.</span>
           </span>
         </Link>
 
-
-
-
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-[#0d1117]/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 shadow-inner">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
-                key={link.href}
+                key={link.name}
                 href={link.href}
-                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+                className={`text-sm font-medium transition-colors duration-200 ${
                   isActive
-                    ? "bg-[#6366f1] text-white shadow-md shadow-[#6366f1]/30"
-                    : "text-slate-300 hover:text-white hover:bg-white/5"
+                    ? "text-slate-900 font-semibold"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 {link.name}
@@ -66,20 +64,32 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* CTA & Mobile Toggle */}
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:block">
-            <Button href="/contact" variant="amber" size="sm" showIcon>
-              Get Started
-            </Button>
-          </div>
+        {/* Desktop Action CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            href="/contact"
+            className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-slate-900/10 hover:scale-[1.02]"
+          >
+            Get a Quote
+          </Link>
+        </div>
 
+        {/* Mobile Hamburger Button */}
+        <div className="flex items-center md:hidden">
           <button
             onClick={toggleMobileMenu}
-            aria-label="Toggle navigation menu"
-            className="md:hidden p-2 rounded-xl bg-[#0d1117] border border-white/10 text-slate-300 hover:text-white focus:outline-none"
+            className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+            aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
           </button>
         </div>
       </div>

@@ -1,81 +1,70 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "@/lib/store/ui-store";
-import { Button } from "@/components/ui/Button";
-import { ChevronRight, Mail, MapPin } from "lucide-react";
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Solutions", href: "/solutions" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Careers", href: "/careers" },
+];
 
 export const MobileMenu: React.FC = () => {
-  const { mobileMenuOpen, setMobileMenuOpen } = useUIStore();
   const pathname = usePathname();
-
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname, setMobileMenuOpen]);
-
-  const navLinks = [
-    { name: "Home", href: "/", desc: "Return to main dashboard overview" },
-    { name: "Services", href: "/services", desc: "Explore our 9 core engineering solutions" },
-    { name: "About", href: "/about", desc: "Discover our global team and story" },
-    { name: "Contact", href: "/contact", desc: "Start your project consultation" },
-  ];
+  const { mobileMenuOpen, setMobileMenuOpen } = useUIStore();
 
   return (
     <AnimatePresence>
       {mobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed inset-0 z-40 bg-[#07090f]/95 backdrop-blur-2xl pt-24 px-6 pb-12 flex flex-col justify-between overflow-y-auto md:hidden"
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl pt-24 px-6 pb-12 flex flex-col justify-between overflow-y-auto md:hidden"
         >
-          <div className="space-y-6">
-            <div className="text-xs font-tech text-[#818cf8] uppercase tracking-wider mb-2">
-              Navigation Menu
-            </div>
-            <nav className="space-y-3">
+          <div className="flex flex-col h-full justify-between pt-6 pb-8">
+            {/* Navigation Links */}
+            <nav className="flex flex-col gap-5">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
-                    key={link.href}
+                    key={link.name}
                     href={link.href}
-                    className={`block p-4 rounded-2xl border transition-all duration-200 ${
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-lg font-heading font-semibold transition-colors duration-200 ${
                       isActive
-                        ? "bg-[#6366f1]/15 border-[#6366f1]/40 text-white"
-                        : "bg-[#0d1117] border-white/5 text-slate-300 hover:text-white hover:border-white/20"
+                        ? "text-slate-900 border-l-2 border-slate-900 pl-3"
+                        : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-heading text-xl font-bold">{link.name}</span>
-                      <ChevronRight className="w-5 h-5 text-slate-500" />
-                    </div>
-                    <p className="text-xs text-slate-400 mt-1">{link.desc}</p>
+                    {link.name}
                   </Link>
                 );
               })}
             </nav>
-          </div>
 
-          <div className="space-y-6 pt-8 border-t border-white/10">
-            <div className="space-y-2 text-xs text-slate-400">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#f59e0b]" />
-                <span>Kochi, India • Manchester, UK • Walnut, USA</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#6366f1]" />
-                <span>info@riolabz.com</span>
+            {/* CTA Action */}
+            <div className="pt-8 border-t border-slate-200 flex flex-col gap-4">
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-3.5 rounded-full bg-slate-900 text-white font-bold text-center text-sm shadow-lg shadow-slate-900/10"
+              >
+                Get a Quote
+              </Link>
+              <div className="text-center text-xs text-slate-500 font-mono">
+                © {new Date().getFullYear()} Riolabz. All rights reserved.
               </div>
             </div>
-
-            <Button href="/contact" variant="amber" size="lg" className="w-full" showIcon>
-              Book Project Consultation
-            </Button>
           </div>
         </motion.div>
       )}

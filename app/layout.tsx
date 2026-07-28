@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Syne, Space_Grotesk } from "next/font/google";
+import { Inter, Instrument_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,8 +8,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin"],
   display: "swap",
 });
@@ -38,9 +38,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} dark h-full antialiased`}
+      className={`${inter.variable} ${instrumentSans.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#07090f] text-[#f8fafc] font-sans selection:bg-[#6366f1] selection:text-white">
+      <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white">
         {children}
       </body>
     </html>
