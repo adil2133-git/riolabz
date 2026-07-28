@@ -168,6 +168,7 @@ export const PortfolioSection: React.FC = () => {
                     src={item.bgImage}
                     alt={`Division ${item.number} Background`}
                     fill
+                    priority={index === 0 || index === 3}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                     className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-700"
                   />
