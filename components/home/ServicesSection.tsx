@@ -16,16 +16,6 @@ export const ServicesSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block px-3.5 py-1 rounded-full border border-slate-300 bg-white text-slate-700 text-xs font-mono font-semibold uppercase tracking-wider shadow-2xs">
-              Digital Capabilities
-            </span>
-          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

@@ -43,16 +43,6 @@ export default function ServicesPage() {
           <div className="absolute top-0 right-0 w-96 h-full bg-gradient-to-l from-[#2563eb]/20 to-transparent pointer-events-none hidden lg:block" />
 
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4 pt-12">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-slate-950/70 text-white text-xs font-mono font-semibold tracking-wider uppercase shadow-xl backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#00f0b5] animate-pulse" />
-                #ENTERPRISE_ENGINEERING_DIVISIONS
-              </span>
-            </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

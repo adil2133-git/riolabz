@@ -97,17 +97,6 @@ export const ProcessSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto space-y-0.5 mb-2">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[#00f0b5] text-[9px] font-mono font-bold uppercase tracking-widest">
-              <Sparkles className="w-2.5 h-2.5 text-[#00f0b5]" />
-              ENGINEERED DELIVERY
-            </span>
-          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 10 }}

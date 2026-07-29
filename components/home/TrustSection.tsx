@@ -15,17 +15,6 @@ export const TrustSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-800 text-xs font-mono font-semibold uppercase tracking-widest shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
-              #TRUST_BY_DESIGN
-            </span>
-          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

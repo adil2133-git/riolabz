@@ -16,16 +16,6 @@ export const PortfolioSection: React.FC = () => {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-slate-300 bg-slate-50 text-slate-800 text-xs font-mono font-semibold uppercase tracking-widest shadow-2xs">
-              COMPLETED WORKS &amp; DIVISIONS
-            </span>
-          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

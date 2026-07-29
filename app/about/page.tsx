@@ -22,16 +22,6 @@ export default function AboutPage() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-4xl mx-auto space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-slate-50 text-slate-800 text-xs font-mono font-semibold uppercase tracking-widest shadow-2xs">
-                  <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
-                  #REDEFINING_ENGINEERING
-                </span>
-              </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}

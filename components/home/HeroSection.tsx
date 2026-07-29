@@ -30,16 +30,6 @@ export const HeroSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="max-w-3xl space-y-4 sm:space-y-5">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/20 bg-slate-950/70 text-white text-[11px] font-mono font-semibold tracking-wider uppercase shadow-xl backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-[#00f0b5] animate-pulse" />
-              #BuildingDigitalFutures
-            </span>
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
