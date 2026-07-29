@@ -1,92 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
-
-const processStages = [
-  {
-    id: "01",
-    stage: "STAGE 01",
-    title: "Discovery & System Blueprint",
-    subtitle: "PHASE 01 · REQUIREMENTS",
-    shortNav: "01 / Discovery",
-    description:
-      "Detailed stakeholder interviews, technical stack alignment, and risk analysis tailored to enterprise goals.",
-    outcome: "Reduces mid-project scope changes by up to 40%.",
-    duration: "EST. DURATION: 2–3 WEEKS",
-    deliverables: [
-      "Core System & API Specifications",
-      "Cloud Infrastructure Roadmap",
-      "Security & Compliance Audit",
-    ],
-    icon: Search,
-    image: "/process-discovery.jpg",
-    badge: "Architectural Scoping",
-  },
-  {
-    id: "02",
-    stage: "STAGE 02",
-    title: "Modular UI/UX & Prototyping",
-    subtitle: "PHASE 02 · DESIGN SYSTEM",
-    shortNav: "02 / UI/UX Design",
-    description:
-      "Figma component tokens, design systems, and interactive high-fidelity wireframes to validate user flows before coding.",
-    outcome: "Increases user onboarding completion by 65%.",
-    duration: "EST. DURATION: 2 WEEKS",
-    deliverables: [
-      "Figma Design Tokens & Components",
-      "Interactive Prototype Wireframes",
-      "WCAG 2.1 AA Accessibility Specs",
-    ],
-    icon: Compass,
-    image: "/process-design.jpg",
-    badge: "Design System Tokens",
-  },
-  {
-    id: "03",
-    stage: "STAGE 03",
-    title: "Agile Development & QA",
-    subtitle: "PHASE 03 · SPRINT EXECUTION",
-    shortNav: "03 / Agile Dev",
-    description:
-      "Two-week agile sprints, test-driven Next.js/React development, automated CI/CD pipelines, and 100% code coverage.",
-    outcome: "Accelerates time-to-market with 100% test coverage.",
-    duration: "EST. DURATION: 4–6 WEEKS",
-    deliverables: [
-      "Agile Sprint Code Deliverables",
-      "Automated CI/CD Deployment",
-      "Unit & E2E Testing Suites",
-    ],
-    icon: Code2,
-    image: "/process-dev.jpg",
-    badge: "Automated Testing",
-  },
-  {
-    id: "04",
-    stage: "STAGE 04",
-    title: "Zero-Downtime Launch & SLA",
-    subtitle: "PHASE 04 · DEPLOYMENT",
-    shortNav: "04 / Cloud Launch",
-    description:
-      "Seamless GCP/AWS cloud production deployment with continuous 24/7 SLA uptime telemetry monitoring.",
-    outcome: "Guarantees 99.99% uptime with zero deployment outages.",
-    duration: "EST. DURATION: 1 WEEK",
-    deliverables: [
-      "Zero-Downtime Production Launch",
-      "24/7 Managed SLA Infrastructure",
-      "Automated Database Clustering",
-    ],
-    icon: Rocket,
-    image: "/process-launch.jpg",
-    badge: "99.99% SLA Uptime",
-  },
-];
+import { processStages } from "@/lib/data/process";
 
 export const ProcessSection: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const handleNext = () => {
     setActiveIdx((prev) => (prev + 1) % processStages.length);
@@ -100,66 +23,55 @@ export const ProcessSection: React.FC = () => {
     setActiveIdx(index);
   };
 
-  // ONLY capture HORIZONTAL scroll swipes (deltaX), ignore vertical deltaY
   const handleWheel = (e: React.WheelEvent) => {
     if (Math.abs(e.deltaX) > 25) {
-      if (e.deltaX > 0) {
-        handleNext();
-      } else if (e.deltaX < 0) {
-        handlePrev();
-      }
+      if (e.deltaX > 0) handleNext();
+      else if (e.deltaX < 0) handlePrev();
     }
   };
 
-  // Responsive 3D Arc offsets
-  const getCardStyle = (index: number) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) {
+      if (delta > 0) handleNext();
+      else handlePrev();
+    }
+    touchStartX.current = null;
+  };
+
+  const getCardStyle = (index: number, containerWidth: number) => {
     const total = processStages.length;
     let diff = (index - activeIdx + total) % total;
     if (diff > total / 2) diff -= total;
 
+    const sideOffset = Math.min(containerWidth * 0.55, 340);
+    const farOffset = Math.min(containerWidth * 0.85, 560);
+
     if (diff === 0) {
-      // CENTER ACTIVE CARD
       return {
-        x: 0,
-        scale: 1,
-        opacity: 1,
-        filter: "blur(0px)",
-        zIndex: 30,
-        rotateY: 0,
-        pointerEvents: "auto" as const,
+        x: 0, scale: 1, opacity: 1, filter: "blur(0px)",
+        zIndex: 30, rotateY: 0, pointerEvents: "auto" as const,
       };
     } else if (diff === -1 || (diff === total - 1 && activeIdx === 0)) {
-      // LEFT PREVIEW CARD
       return {
-        x: -380,
-        scale: 0.8,
-        opacity: 0.5,
-        filter: "blur(3px)",
-        zIndex: 10,
-        rotateY: 18,
-        pointerEvents: "auto" as const,
+        x: -sideOffset, scale: 0.82, opacity: 0.45, filter: "blur(2px)",
+        zIndex: 10, rotateY: 16, pointerEvents: "auto" as const,
       };
     } else if (diff === 1 || (diff === -(total - 1) && activeIdx === total - 1)) {
-      // RIGHT PREVIEW CARD
       return {
-        x: 380,
-        scale: 0.8,
-        opacity: 0.5,
-        filter: "blur(3px)",
-        zIndex: 10,
-        rotateY: -18,
-        pointerEvents: "auto" as const,
+        x: sideOffset, scale: 0.82, opacity: 0.45, filter: "blur(2px)",
+        zIndex: 10, rotateY: -16, pointerEvents: "auto" as const,
       };
     } else {
-      // FAR HIDDEN CARDS
       return {
-        x: diff > 0 ? 600 : -600,
-        scale: 0.65,
-        opacity: 0,
-        filter: "blur(5px)",
-        zIndex: 0,
-        rotateY: diff > 0 ? -30 : 30,
-        pointerEvents: "none" as const,
+        x: diff > 0 ? farOffset : -farOffset, scale: 0.65, opacity: 0,
+        filter: "blur(5px)", zIndex: 0,
+        rotateY: diff > 0 ? -28 : 28, pointerEvents: "none" as const,
       };
     }
   };
@@ -167,7 +79,9 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       onWheel={handleWheel}
-      className="pt-8 pb-8 bg-slate-950 text-white relative overflow-hidden flex flex-col justify-center min-h-[520px]"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="pt-8 pb-8 bg-slate-950 text-white relative overflow-hidden flex flex-col justify-center min-h-[480px] sm:min-h-[520px]"
     >
       {/* Ambient Background Glows */}
       <div className="absolute top-1/2 left-1/4 w-[500px] h-[300px] bg-[#2563eb]/15 rounded-full blur-[130px] pointer-events-none" />
@@ -231,9 +145,13 @@ export const ProcessSection: React.FC = () => {
         </div>
 
         {/* 3D CURVED TRACK STAGE CAROUSEL */}
-        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[380px] sm:h-[410px] [perspective:1200px]">
+        <div
+          id="process-carousel"
+          className="relative max-w-5xl mx-auto w-full flex items-center justify-center h-[380px] sm:h-[410px] [perspective:1200px]"
+        >
           {processStages.map((stage, idx) => {
-            const style = getCardStyle(idx);
+            const containerWidth = typeof window !== "undefined" ? Math.min(window.innerWidth, 1024) : 800;
+            const style = getCardStyle(idx, containerWidth);
             const isCenter = activeIdx === idx;
             const Icon = stage.icon;
 
@@ -250,7 +168,7 @@ export const ProcessSection: React.FC = () => {
                   zIndex: style.zIndex,
                 }}
                 transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-                className="absolute w-[270px] sm:w-[310px] lg:w-[340px] cursor-pointer shadow-2xl [transform-style:preserve-3d]"
+                className="absolute w-[260px] sm:w-[300px] lg:w-[340px] cursor-pointer shadow-2xl [transform-style:preserve-3d]"
                 style={{ pointerEvents: style.pointerEvents }}
               >
                 <div

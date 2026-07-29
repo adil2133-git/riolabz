@@ -32,7 +32,7 @@ export const TrustSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-slate-900 tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-6xl font-heading font-black text-slate-900 tracking-tight"
           >
             Why Global Enterprises Partner With Riolabz
           </motion.h2>

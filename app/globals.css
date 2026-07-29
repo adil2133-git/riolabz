@@ -21,12 +21,20 @@
   color-scheme: light;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: #ffffff;
   color: #0f172a;
   font-family: var(--font-instrument), var(--font-inter), sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
 }
 
 /* Minimal Glassmorphic Panels for Light Mode */

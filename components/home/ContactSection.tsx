@@ -4,39 +4,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Send, CheckCircle2, Sparkles, Building2, Globe2 } from "lucide-react";
-
-const officeHubs = [
-  {
-    city: "Kochi, India",
-    type: "GLOBAL R&D & ENGINEERING CENTER",
-    address: "Riolabz Towers, Infopark Phase 1, Kakkanad, Kochi, Kerala 682042",
-    phone: "+91 484 298 4400",
-    email: "india@riolabz.com",
-    image: "/kochi-office.jpg",
-    flag: "🇮🇳",
-  },
-  {
-    city: "London, UK",
-    type: "EUROPEAN STRATEGY & CLIENT HUB",
-    address: "Level 18, One Canada Square, Canary Wharf, London E14 5AA",
-    phone: "+44 20 7946 0912",
-    email: "uk@riolabz.com",
-    image: "/london-office.jpg",
-    flag: "🇬🇧",
-  },
-  {
-    city: "Dubai, UAE",
-    type: "MENA REGIONAL HEADQUARTERS",
-    address: "Building 3, Dubai Internet City, Sheikh Zayed Rd, Dubai, UAE",
-    phone: "+971 4 438 9011",
-    email: "dubai@riolabz.com",
-    image: "/dubai-office.jpg",
-    flag: "🇦🇪",
-  },
-];
+import { ContactFormData } from "@/types";
+import { officeHubs } from "@/lib/data/contact";
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     division: "ai-software",
@@ -89,7 +61,7 @@ export const ContactSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-white tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-white tracking-tight"
           >
             Let&apos;s Build Your Next<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] to-[#00f0b5]">
@@ -162,14 +134,14 @@ export const ContactSection: React.FC = () => {
                           <MapPin className="w-3.5 h-3.5 text-[#2563eb] flex-shrink-0 mt-0.5" />
                           <span>{hub.address}</span>
                         </div>
-                        <div className="flex items-center gap-4 pt-1 text-xs font-mono text-slate-400">
+                        <div className="flex flex-col xs:flex-row flex-wrap items-start gap-1.5 sm:gap-4 pt-1 text-xs font-mono text-slate-400">
                           <div className="flex items-center gap-1">
                             <Phone className="w-3 h-3 text-[#00f0b5]" />
                             <span>{hub.phone}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <Mail className="w-3 h-3 text-[#2563eb]" />
-                            <span>{hub.email}</span>
+                            <span className="break-all">{hub.email}</span>
                           </div>
                         </div>
                       </div>
@@ -182,7 +154,7 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* RIGHT COLUMN: Interactive Project Proposal Form */}
-          <div className="lg:col-span-6 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl relative">
+          <div className="lg:col-span-6 bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
             <div className="space-y-3 mb-8">
               <span className="text-xs font-mono font-bold text-[#00f0b5] uppercase tracking-widest">
                 REQUEST A PROPOSAL
