@@ -5,11 +5,112 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ArrowRight, ExternalLink, X, Code, Smartphone, Cloud, Layers } from "lucide-react";
-import { Division } from "@/types";
-import { divisions } from "@/lib/data/portfolio";
+
+const divisions = [
+  {
+    id: "software-ai",
+    number: "01",
+    bgImage: "/division01.png",
+    image: "/finance.jpg",
+    subtitle: "AI & SOFTWARE DIVISION",
+    title: "Software Innovation & Enterprise Platforms",
+    description:
+      "At Riolabz, we don't just build websites; we engineer intelligent enterprise software ecosystems designed to scale, adapt, and provide measurable value.",
+    features: [
+      "Custom Microservice & Cloud Architectures",
+      "High-Performance Next.js & React Platforms",
+      "SOC-2 Enterprise Security & Data Encryption",
+      "Scalable API Integrations & Realtime Telemetry",
+    ],
+    primaryBtn: "View Projects",
+    secondaryBtn: "Learn More",
+    icon: Code,
+    gradient: "from-[#0f172a] via-[#1e293b] to-slate-900",
+    modalProjects: [
+      { name: "Nexus Global Finance", type: "FinTech Platform", metric: "4.8M Active Users" },
+      { name: "Enterprise ERP Portal", type: "Custom ERP System", metric: "99.99% Uptime" },
+    ],
+    zIndex: "z-10",
+  },
+  {
+    id: "mobile-apps",
+    number: "02",
+    bgImage: "/division02.png",
+    image: "/health.jpg",
+    subtitle: "MOBILE APP DIVISION",
+    title: "Cross-Platform Mobile Application Hub",
+    description:
+      "Delivering native-grade iOS and Android mobile products that reach users wherever they are. Built with React Native and modern cloud backends for flawless performance.",
+    features: [
+      "Cross-Platform iOS & Android Development",
+      "Offline-First Synchronization & Caching",
+      "Biometric Authentication & Secure Storage",
+      "Automated CI/CD Store Deployment",
+    ],
+    primaryBtn: "View Mobile Apps",
+    secondaryBtn: "App Architecture",
+    icon: Smartphone,
+    gradient: "from-slate-900 via-blue-950 to-slate-900",
+    modalProjects: [
+      { name: "VitaCure Telehealth", type: "HealthTech iOS & Android", metric: "50k+ Daily Consults" },
+      { name: "Luxura Retail App", type: "E-Commerce App", metric: "$120M+ GMV" },
+    ],
+    zIndex: "z-20",
+  },
+  {
+    id: "cloud-ai",
+    number: "03",
+    bgImage: "/division03.png",
+    image: "/cloud.jpg",
+    subtitle: "CLOUD & AI DIVISION",
+    title: "Cloud DevOps & Enterprise AI Solutions",
+    description:
+      "Transforming raw business data into actionable intelligence. We deploy automated GCP/AWS cloud pipelines, custom LLMs, and 24/7 SLA infrastructure.",
+    features: [
+      "Automated GCP & AWS Cloud Orchestration",
+      "Custom AI Models & Workflow Automation",
+      "24/7 SLA Monitoring & Incident Response",
+      "High-Availability Database Clustering",
+    ],
+    primaryBtn: "View Cloud Projects",
+    secondaryBtn: "Talk to Architect",
+    icon: Cloud,
+    gradient: "from-slate-900 via-slate-800 to-indigo-950",
+    modalProjects: [
+      { name: "Cloud Telemetry Engine", type: "DevOps Infrastructure", metric: "< 15ms Latency" },
+      { name: "Predictive Analytics Suite", type: "AI Engine", metric: "98% Accuracy" },
+    ],
+    zIndex: "z-30",
+  },
+  {
+    id: "automation-iot",
+    number: "04",
+    bgImage: "/division04.png",
+    image: "/automation.jpg",
+    subtitle: "AUTOMATION & SYSTEMS DIVISION",
+    title: "Smart Hardware & Enterprise Automation",
+    description:
+      "Bringing intelligence to your physical infrastructure with custom IoT hardware integration, automated surveillance, and real-time environment monitoring.",
+    features: [
+      "Integrated IoT & Smart Hardware Hubs",
+      "Automated Surveillance & Access Control",
+      "Adaptive Sensor Telemetry & Analytics",
+      "Edge Computing & On-Premise Integration",
+    ],
+    primaryBtn: "Explore Automation",
+    secondaryBtn: "Hardware Specs",
+    icon: Layers,
+    gradient: "from-slate-900 via-teal-950 to-slate-950",
+    modalProjects: [
+      { name: "Smart Hub Controller", type: "IoT Telemetry", metric: "10k+ Devices" },
+      { name: "Biometric Access Core", type: "Hardware Security", metric: "Zero Breach" },
+    ],
+    zIndex: "z-40",
+  },
+];
 
 export const PortfolioSection: React.FC = () => {
-  const [activeModal, setActiveModal] = useState<Division | null>(null);
+  const [activeModal, setActiveModal] = useState<typeof divisions[0] | null>(null);
 
   return (
     <section className="pt-20 pb-8 bg-white border-t border-slate-200/80 relative">
@@ -32,7 +133,7 @@ export const PortfolioSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl sm:text-5xl font-heading font-black text-slate-900 tracking-tight"
+            className="text-4xl sm:text-5xl font-heading font-black text-slate-900 tracking-tight"
           >
             Our Production Divisions
           </motion.h2>
@@ -57,9 +158,9 @@ export const PortfolioSection: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`sticky top-20 ${item.zIndex} ${isLast ? "mb-0" : "mb-[20vh]"} transition-all duration-300`}
+              className={`sticky top-24 sm:top-28 ${item.zIndex} ${isLast ? "mb-0" : "mb-[20vh] sm:mb-[30vh]"} transition-all duration-300`}
             >
-              <div className="relative bg-white rounded-3xl border border-slate-300 p-5 sm:p-8 lg:p-10 shadow-[0_-10px_40px_rgba(0,0,0,0.08)] overflow-hidden group">
+              <div className="relative bg-white rounded-3xl border border-slate-300 p-6 sm:p-8 lg:p-10 shadow-[0_-10px_40px_rgba(0,0,0,0.08)] overflow-hidden group">
                 
                 {/* Full Card Background Image */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-3xl">
@@ -82,7 +183,7 @@ export const PortfolioSection: React.FC = () => {
                       <span className="inline-block text-xs font-mono font-bold text-[#2563eb] tracking-widest uppercase mb-1">
                         {item.subtitle}
                       </span>
-                      <h3 className="text-xl sm:text-2xl sm:text-3xl font-heading font-black text-slate-900 leading-tight">
+                      <h3 className="text-2xl sm:text-3xl font-heading font-black text-slate-900 leading-tight">
                         {item.title}
                       </h3>
                     </div>
