@@ -231,7 +231,7 @@ export const ProcessSection: React.FC = () => {
         </div>
 
         {/* 3D CURVED TRACK STAGE CAROUSEL */}
-        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[340px] sm:h-[360px] [perspective:1200px]">
+        <div className="relative max-w-5xl mx-auto flex items-center justify-center h-[380px] sm:h-[410px] [perspective:1200px]">
           {processStages.map((stage, idx) => {
             const style = getCardStyle(idx);
             const isCenter = activeIdx === idx;
@@ -310,20 +310,20 @@ export const ProcessSection: React.FC = () => {
                     </p>
 
                     {/* Business Outcome Impact Badge */}
-                    <div className="pt-1 flex items-center gap-1 text-[10px] font-mono text-[#00f0b5] font-semibold bg-[#00f0b5]/10 px-2 py-1 rounded border border-[#00f0b5]/20">
+                    <div className="pt-1 flex items-center gap-1.5 text-[10px] font-mono text-[#00f0b5] font-medium">
                       <TrendingUp className="w-3 h-3 flex-shrink-0" />
                       <span className="line-clamp-1">{stage.outcome}</span>
                     </div>
 
-                    {/* Deliverables Checklist */}
-                    <div className="pt-1 space-y-0.5 border-t border-white/15">
-                      <div className="text-[8px] font-mono text-slate-300 font-extrabold uppercase tracking-wider">
-                        DELIVERABLES
+                    {/* Deliverables Checklist (Sleek Minimal List, No Thick Boxes) */}
+                    <div className="pt-2 space-y-1 border-t border-white/10">
+                      <div className="text-[9px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1">
+                        KEY DELIVERABLES
                       </div>
-                      <div className="space-y-0.5">
+                      <div className="space-y-1">
                         {stage.deliverables.map((del) => (
-                          <div key={del} className="flex items-center gap-1 text-[9px] text-slate-100 font-semibold bg-white/10 px-2 py-0.5 rounded border border-white/15">
-                            <CheckCircle2 className="w-2.5 h-2.5 text-[#00f0b5] flex-shrink-0" />
+                          <div key={del} className="flex items-center gap-1.5 text-[10px] text-slate-200 font-medium">
+                            <CheckCircle2 className="w-3 h-3 text-[#00f0b5] flex-shrink-0 opacity-90" />
                             <span className="line-clamp-1">{del}</span>
                           </div>
                         ))}
@@ -332,11 +332,11 @@ export const ProcessSection: React.FC = () => {
                   </div>
 
                   {/* Card Action Footer */}
-                  <div className="pt-1.5 border-t border-white/15 flex items-center justify-between text-[9px] font-mono font-bold">
-                    <span className="text-slate-300 tracking-wide">{stage.duration}</span>
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono font-semibold">
+                    <span className="text-slate-400 tracking-wide">{stage.duration}</span>
                     <Link
-                      href="/contact"
-                      className="inline-flex items-center gap-1 text-[#00f0b5] hover:text-white transition-colors text-xs font-black"
+                      href="/#contact"
+                      className="inline-flex items-center gap-1 text-[#00f0b5] hover:text-white transition-colors font-bold"
                     >
                       <span>View Full Scope</span>
                       <ArrowRight className="w-3 h-3" />
