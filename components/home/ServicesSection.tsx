@@ -4,45 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Cloud, BarChart3, Palette, Code2, ShieldAlert, Rocket, ArrowRight } from "lucide-react";
-
-const services = [
-  {
-    icon: Cloud,
-    title: "Cloud Infrastructure",
-    description: "Scalable AWS & GCP cloud ecosystems with 99.9% fault-tolerant uptime and automated CI/CD.",
-    accent: "bg-blue-50 text-blue-600 border-blue-200/60",
-  },
-  {
-    icon: BarChart3,
-    title: "Data Analytics & AI",
-    description: "Actionable business intelligence and automated workflows driven by enterprise AI models.",
-    accent: "bg-emerald-50 text-emerald-600 border-emerald-200/60",
-  },
-  {
-    icon: Palette,
-    title: "Product Design (UI/UX)",
-    description: "High-fidelity digital interfaces prioritizing conversion, accessibility, and human interaction.",
-    accent: "bg-[#00f0b5]/10 text-emerald-700 border-emerald-300/60",
-  },
-  {
-    icon: Code2,
-    title: "Custom Software Dev",
-    description: "Bespoke web platforms and mobile applications engineered precisely for complex workflows.",
-    accent: "bg-indigo-50 text-indigo-600 border-indigo-200/60",
-  },
-  {
-    icon: ShieldAlert,
-    title: "Enterprise Security",
-    description: "Zero-trust security frameworks, vulnerability assessments, and SOC-2 data compliance.",
-    accent: "bg-sky-50 text-sky-600 border-sky-200/60",
-  },
-  {
-    icon: Rocket,
-    title: "Digital Growth Strategy",
-    description: "Agile product strategies and architecture blueprints designed for fast global scale.",
-    accent: "bg-amber-50 text-amber-600 border-amber-200/60",
-  },
-];
+import { servicesList } from "@/lib/data/services";
 
 export const ServicesSection: React.FC = () => {
   return (
@@ -88,7 +50,7 @@ export const ServicesSection: React.FC = () => {
 
         {/* 6 Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((item, index) => {
+          {servicesList.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div

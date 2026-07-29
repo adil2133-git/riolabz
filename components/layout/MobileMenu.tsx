@@ -5,16 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "@/lib/store/ui-store";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Solutions", href: "/solutions" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
-  { name: "Careers", href: "/careers" },
-];
+import { navLinks } from "@/lib/data/navigation";
 
 export const MobileMenu: React.FC = () => {
   const pathname = usePathname();
@@ -55,7 +46,7 @@ export const MobileMenu: React.FC = () => {
             {/* CTA Action */}
             <div className="pt-8 border-t border-slate-200 flex flex-col gap-4">
               <Link
-                href="/contact"
+                href="/#contact"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full py-3.5 rounded-full bg-slate-900 text-white font-bold text-center text-sm shadow-lg shadow-slate-900/10"
               >
