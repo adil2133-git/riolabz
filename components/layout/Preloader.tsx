@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Animated initial screen preloader
 export const Preloader: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
+  // Show preloader only once per browser session
   useEffect(() => {
     const hasSeen = sessionStorage.getItem("has_seen_riolabz_preloader");
 

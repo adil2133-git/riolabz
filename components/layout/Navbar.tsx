@@ -6,11 +6,13 @@ import { usePathname } from "next/navigation";
 import { useUIStore } from "@/lib/store/ui-store";
 import { navLinks } from "@/lib/data/navigation";
 
+// Top navigation bar component
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { toggleMobileMenu, mobileMenuOpen } = useUIStore();
 
+  // Detect scroll position to switch background style
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);

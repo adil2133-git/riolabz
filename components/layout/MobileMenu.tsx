@@ -7,12 +7,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "@/lib/store/ui-store";
 import { navLinks } from "@/lib/data/navigation";
 
+// Mobile navigation menu drawer component
 export const MobileMenu: React.FC = () => {
   const pathname = usePathname();
+  // State from UI store to toggle menu visibility
   const { mobileMenuOpen, setMobileMenuOpen } = useUIStore();
 
   return (
     <AnimatePresence>
+      {/* Show overlay menu when mobile menu state is open */}
       {mobileMenuOpen && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -22,7 +25,7 @@ export const MobileMenu: React.FC = () => {
           className="fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl pt-24 px-6 pb-12 flex flex-col justify-between overflow-y-auto md:hidden"
         >
           <div className="flex flex-col h-full justify-between pt-6 pb-8">
-            {/* Navigation Links */}
+            {/* List of mobile navigation pages */}
             <nav className="flex flex-col gap-5">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;

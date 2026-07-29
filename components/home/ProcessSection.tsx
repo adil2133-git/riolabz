@@ -7,14 +7,17 @@ import { motion } from "framer-motion";
 import { Sparkles, Search, Compass, Code2, Rocket, CheckCircle2, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 import { processStages } from "@/lib/data/process";
 
+// 4-Stage 3D interactive process carousel component
 export const ProcessSection: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  // Navigate to next stage card
   const handleNext = () => {
     setActiveIdx((prev) => (prev + 1) % processStages.length);
   };
 
+  // Navigate to previous stage card
   const handlePrev = () => {
     setActiveIdx((prev) => (prev - 1 + processStages.length) % processStages.length);
   };
@@ -23,6 +26,7 @@ export const ProcessSection: React.FC = () => {
     setActiveIdx(index);
   };
 
+  // Handle horizontal mouse wheel scroll
   const handleWheel = (e: React.WheelEvent) => {
     if (Math.abs(e.deltaX) > 25) {
       if (e.deltaX > 0) handleNext();
@@ -30,10 +34,12 @@ export const ProcessSection: React.FC = () => {
     }
   };
 
+  // Handle touch swipe start position on mobile
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
+  // Detect horizontal touch swipe left or right on mobile
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const delta = touchStartX.current - e.changedTouches[0].clientX;

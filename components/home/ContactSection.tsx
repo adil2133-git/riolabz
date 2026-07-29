@@ -7,7 +7,9 @@ import { MapPin, Mail, Phone, Send, CheckCircle2, Sparkles, Building2, Globe2 } 
 import { ContactFormData } from "@/types";
 import { officeHubs } from "@/lib/data/contact";
 
+// Global offices contact section & project proposal form
 export const ContactSection: React.FC = () => {
+  // Form input state
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -18,6 +20,7 @@ export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [activeOffice, setActiveOffice] = useState(0);
 
+  // Handle form submission and show success message
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
